@@ -20,7 +20,8 @@ The server:
 
 ##### What can I do with the server?
   Here are some ideas:
-  1. Share your videos and photos with your family. Note that there's no security implemented, so don't open
+  1. Use for development for serving any static content your frontend application requires.
+  2. Share your videos and photos with your family. Note that there's no security implemented, so don't open
      your ports in the router in this scenario (i.e. use it inside your home network).
   2. Install on a cloud machine to view and download files from a folder there.
   3. For development purposes, install on some server and have linkable files when you need static content 
