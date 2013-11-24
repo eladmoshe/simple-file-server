@@ -27,7 +27,7 @@ rootFolder = argv.folder;
 
 app = express()
     .use(express.favicon())
-    .use(express.logger('dev'))
+    .use(express.logger(/*'dev'*/))
     //.use(express.bodyParser())
     .use(express.static(rootFolder, { maxAge: hourMs }))
     .use(express.directory(rootFolder))
