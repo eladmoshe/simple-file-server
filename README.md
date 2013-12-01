@@ -29,5 +29,5 @@ The server:
   4. Any other usage which requires efficient, quick, no configuration (and no security...) file server.
   
 ##### TODOs
-  [ ] Add security/authentication
+  [ ] Add Passport authentication (http://passportjs.org/guide/google/)
   
