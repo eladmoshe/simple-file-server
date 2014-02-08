@@ -27,14 +27,16 @@ argv = optimist
 hourMs = 1000 * 60 * 60;
 
 contentFolder = argv.folder;
-
-users = JSON.parse(fs.readFileSync(usersFile));
-if (!users || !users.users) {
-    console.log('** WARNING: No "users.json" file found. No authentication will be required! **');
-    return;
-} else {
-    users = users.users;
+if (fs.existsSync(usersFile)){
+    users = JSON.parse(fs.readFileSync(usersFile));
+    if (users && users.users) {
+        users = users.users;
+    }
 }
+if (!users){
+    console.log('** WARNING: No "users.json" file found. No authentication will be required! **');
+}
+
 
 app = express()
     .use(express.favicon())
