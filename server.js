@@ -1,13 +1,16 @@
 var optimist = require('optimist'),
     http = require('http'),
     express = require('express'),
-    path = require('path'),
+    fs = require('fs'),
     logger = require('winston'),
+    _ = require('lodash'),
     argv,
     app,
-    rootFolder,
-    hourMs
-;
+    contentFolder,
+    hourMs,
+    users,
+    usersFile = __dirname + '/users.json'
+    ;
 
 
 /*handle cli arguments*/
@@ -17,27 +20,50 @@ argv = optimist
     .describe('p', 'Listen on port')
     .default('port', 8080)
     .alias('f', 'folder')
-    .describe('f','Folder to serve')
-    .default('folder','/home/azureuser/Downloads/')
+    .describe('f', 'Folder to serve')
+    .default('folder', process.env.HOME + '/Downloads/')
     .argv;
 
-hourMs = 1000*60*60;
+hourMs = 1000 * 60 * 60;
 
-rootFolder = argv.folder;
+contentFolder = argv.folder;
+
+users = JSON.parse(fs.readFileSync(usersFile));
+if (!users || !users.users) {
+    console.log('** WARNING: No "users.json" file found. No authentication will be required! **');
+    return;
+} else {
+    users = users.users;
+}
 
 app = express()
     .use(express.favicon())
     .use(express.logger(/*'dev'*/))
     //.use(express.bodyParser())
-    .use(express.static(rootFolder, { maxAge: hourMs }))
-    .use(express.directory(rootFolder))
+    .use(express.basicAuth(function(username, password) {
+        if (!users) {
+            return true;
+        }
+        if (!(username && password)) {
+            return false;
+        }
+        var user = _(users).find(function(item) {
+            return item.name === username;
+        });
+        if (!user) {
+            return false;
+        }
+        return (password === user.password);
+    }))
+    .use(express.static(contentFolder, { maxAge: hourMs }))
+    .use(express.directory(contentFolder))
     .use(express.errorHandler());
-;
+
 
 function run() {
     var server;
     logger.info('* Mock server is running at port [', argv.port, ']');
-    logger.info('* Serving folder [', rootFolder, ']'); 
+    logger.info('* Serving folder [', contentFolder, ']');
     http.createServer(app).listen(argv.port);
 }
 

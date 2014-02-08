@@ -7,7 +7,20 @@ The server:
      You can then click any file which will open it using your browser default file handler 
      (e.g. streaming your videos, watch your photos, read pdfs etc.). 
      You can also right click the file and select "save as..." to download the file to a local folder.
-  2. Provides all the files using standard HTTP GET. 
+  2. Provides all the files using standard HTTP GET.
+  3. Provides basic authentication, if a json file called 'users.json' is created with the following format:
+  ```json
+  {
+      "users": [
+          {
+              "name": "<username>",
+              "password": "<password>"
+          }
+      ]
+  }
+  ```
+  If no such file exists, there will be no authentication.
+
 
 ##### Using the server as a system service (on Linux) which starts on system startup (optional):
   1. `sudo apt-get install upstart`
@@ -27,7 +40,3 @@ The server:
   3. For development purposes, install on some server and have linkable files when you need static content 
      (e.g. I use it with Grunt-copy to fetch static files which are not stored in Git).
   4. Any other usage which requires efficient, quick, no configuration (and no security...) file server.
-  
-##### TODOs
-  [ ] Add Passport authentication (http://passportjs.org/guide/google/)
-  

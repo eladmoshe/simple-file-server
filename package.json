@@ -1,29 +1,15 @@
 {
   "repository": {
     "type": "git",
-    "url": "git@mydtbld0023.isr.hp.com:7999/stor/storm-lt.git"
+    "url": "git@github.com:eladmoshe/simple-file-server.git"
   },
-  "name": "common",
-  "version": "0.0.1",
-  "description": "Mock UI server for Storm",
-  "devDependencies": {
+  "name": "simple-file-server",
+  "version": "0.0.2",
+  "description": "Simple file server for serving files easily",
+  "dependencies": {
     "express": "3.x.x",
     "optimist": "0.6.x",
-    "less-middleware": "",
     "winston": "0.7.x",
-    "grunt": "~0.4.1",
-    "grunt-recess": "~0.3.0",
-    "grunt-contrib-clean": "~0.4.1",
-    "grunt-contrib-copy": "~0.4.1",
-    "grunt-contrib-jshint": "~0.7.1",
-    "grunt-contrib-concat": "~0.3.0",
-    "grunt-contrib-watch": "~0.4.0",
-    "grunt-contrib-uglify": "~0.2.0",
-    "grunt-karma": "~0.5.0",
-    "grunt-ngmin": "0.0.2",
-    "grunt-html2js": "~0.1.3",
-    "grunt-conventional-changelog": "~0.1.1",
-    "grunt-bump": "0.0.6",
-    "forever": "~0.10.9"
+    "lodash": "~2.x.x"
   }
 }
